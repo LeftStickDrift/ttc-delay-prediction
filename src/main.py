@@ -31,12 +31,12 @@ def main():
 
     X = df.drop(columns=['Min Delay','Min Delay', 'Min Gap'])
     y = df_copy['Delay_Risk'] # yes/no classification problem
-    y_reg = df_copy['Delay_Minutes'] # will have to define a formula that defines delay (ex. Time - Min Delay)
+    y_reg = df_copy['Delay_Minutes'] # regression problem
     
 
 
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+    X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2) # aiming to predict two targets so must split y_reg as well. 
 
 
     #Preprocess data here
