@@ -26,7 +26,6 @@ def main():
     print(df_copy[['Delay_Minutes', 'Delay_Risk']].head()) 
 
     #model = train_model(LinearRegression(), X_training_data, y_training_data)
-    
 
 
     X = df.drop(columns=['Min Delay','Min Delay', 'Min Gap'])
@@ -36,7 +35,7 @@ def main():
 
 
 
-    X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2) # aiming to predict two targets so must split y_reg as well. 
+    X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2, random_state=42) # aiming to predict two targets so must split y_reg as well. 
 
 
     #Preprocess data here
