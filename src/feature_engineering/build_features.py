@@ -28,11 +28,11 @@ def time_group(df_c):
 
     return df_c
 
-#Function that creates labels based off hour to indicate rush-hours 
+#Function that creates labels based off hour to indicate rush-hours(Could adjust for weekday vs weekend logic) 
 def rush_hour(df_c):
 
-    weekday_rush = range(6,10)
-    weekend_rush = range(15, 19)
+    weekday_rush = range(6,11)
+    weekday_even_rush = range(15, 20)
 
 
     df_hour = pd.to_datetime(df_c['Time']).dt.hour
@@ -40,7 +40,7 @@ def rush_hour(df_c):
     df_c['Rush_Hour'] = 0
 
     df_c.loc[df_hour.isin(weekday_rush), 'Rush_Hour'] = 1
-    df_c.loc[df_hour.isin(weekend_rush), 'Rush_Hour'] = 1
+    df_c.loc[df_hour.isin(weekday_even_rush), 'Rush_Hour'] = 1
 
 
     return df_c
