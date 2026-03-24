@@ -5,13 +5,11 @@ from sklearn import preprocessing
 
 def load_dataset(file_path):
 
-    if (pd.read_csv(file_path) == pd.DataFrame):
+    if (isinstance(pd.read_csv(file_path), pd.DataFrame)):
         return pd.read_csv(file_path) # Dataset
     
     else:
-        return (pd.DataFrame) #  Empty dataframe
-
-#can add error handling here
+        return None # returns None if invalid file_path is passed
 
 
 
