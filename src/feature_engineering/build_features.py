@@ -8,7 +8,27 @@ from sklearn.model_selection import train_test_split,StratifiedShuffleSplit, Gri
 #encodes days Mon - Sunday (0- Mon, 6 - Sun), hour into (0 - 00:00,1- 01:00 etc... using 24 hour clock format), month encoded to (1-12. 1 being January, 12 - being December)
 def weekday_hour_month_encoding(df_c):
 
-    #weekend label sat-sun. (0 or 1)
+    day_of_week_dict = {
+        "monday": 0,
+        "tuesday": 1,
+        "wednesday": 2,
+        "thursday": 3,
+        "friday": 4,
+        "saturday": 5,
+        "sunday": 6
+    }
+
+    if df_c['Day'].dtype == "str":
+        df_c["Day_Of_Week"] = df_c['Day'].str.lower().map(day_of_week_dict)
+
+    
+    
+    df_c['Hour'] = pd.to_datetime(df_c['Time'], format="%H:%M").dt.hour
+
+    df_c['Month'] = pd.to_datetime(df_c['Date']).dt.month
+
+
+
     return df_c
 
 
@@ -28,19 +48,17 @@ def time_group(df_c):
 
     return df_c
 
-#Function that creates labels based off hour to indicate rush-hours(Could adjust for weekday vs weekend logic) 
+#Creates a label for rush_hour (#NEED TO CORRECT LOGIC FOR WEEKEND VS WEEKDAY RUSH HOUR) 
 def rush_hour(df_c):
 
     weekday_rush = range(6,11)
     weekday_even_rush = range(15, 20)
 
 
-    df_hour = pd.to_datetime(df_c['Time']).dt.hour
-
     df_c['Rush_Hour'] = 0
 
-    df_c.loc[df_hour.isin(weekday_rush), 'Rush_Hour'] = 1
-    df_c.loc[df_hour.isin(weekday_even_rush), 'Rush_Hour'] = 1
+    df_c.loc[df_c['Hour'].isin(weekday_rush), 'Rush_Hour'] = 1
+    df_c.loc[df_c['Hour'].isin(weekday_even_rush), 'Rush_Hour'] = 1
 
 
     return df_c

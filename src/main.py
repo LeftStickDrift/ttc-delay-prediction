@@ -1,7 +1,7 @@
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 from preprocessing_data.preprocess import load_dataset, preprocess_dataset 
-from feature_engineering.build_features import time_group, rush_hour
+from feature_engineering.build_features import time_group, rush_hour, weekday_hour_month_encoding
 from models.train_model import train_model
 from models.predict_model import predict
 from sklearn.linear_model import LinearRegression, LogisticRegression
@@ -36,11 +36,14 @@ def main():
     test_cp = time_group(df_copy)
     print(test_cp['Time_Group'])
 
-
-    test2_cp = rush_hour(df_copy)
-    print(test2_cp[test2_cp['Rush_Hour'] == 1])
     
 
+    test3_cp = weekday_hour_month_encoding(df_copy)
+    print(test3_cp['Day_Of_Week'] == 1)
+    print(test3_cp['Hour'].head())
+    print(test3_cp['Month'].min())
+    # test2_cp = rush_hour(df_copy)
+    # print(test2_cp[test2_cp['Rush_Hour'] == 1])
 
 
     X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2, random_state=42) # aiming to predict two targets so must split y_reg as well. 
@@ -54,7 +57,8 @@ def main():
     #Then attain features from feature_engineering module to train the model
     # train_model(model,_, _)
 
-    df.info()
+    df_copy.info()
+    print(df_copy.head())
 
     #after all transformation and feature gathering train and predict models
     
