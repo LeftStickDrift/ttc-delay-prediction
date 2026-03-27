@@ -4,6 +4,13 @@ from sklearn import preprocessing
 
 
 def load_dataset(file_path):
+    """
+    Load a dataset from a given file/destination.
+    
+    Input(s): file_path (string) - file path / origin
+
+    Output(s): (dataframe / None) - dataframe of the dataset or None if invalid
+    """
 
     if (isinstance(pd.read_csv(file_path), pd.DataFrame)):
         return pd.read_csv(file_path) # Dataset
@@ -16,25 +23,47 @@ def load_dataset(file_path):
 #General subroutines that can be implemented in preprocessing_data function set. 
 #Not sure how useful this will be.
 def station_encoding(df_c):
+    """
+    Create numeric labels for stations and return the labels and unique stations.
+    
+    Input(s): df_c (pandas) - column of dataframe
 
+    Output(s): unique_stations (array) - an array of tranist codes
+               encoding_stations (array) - an array of integers where different integers correspond to a line
+    """
+    
+    encoding_stations, unique_stations = pd.factorize(df_c) # Returns two arrays one encoding the column and another array containg the unique values in the column
 
-
-
-    return df_c 
+    return (encoding_stations, unique_stations)
 
 
 
 # assigns a unique integer to each Code
 def transit_code_encoding(df_c):
+    """
+    Create numeric labels for transit codes and return the labels and unique transit codes.
     
+    Input(s): df_c (pandas) - column of dataframe
 
+    Output(s): unique_tc (array) - an array of tranist codes
+               encoding_tc (array) - an array of integers where different integers correspond to a line
+    """
+    
+    encoding_tc, unique_tc = pd.factorize(df_c) # Returns two arrays one encoding the column and another array containg the unique values in the column
 
-    return df_c
+    return (encoding_tc, unique_tc)
+    
 
 
 #(N - 1, S - 2, E - 3, W-4)
 def bound_encoding(df_c):
-    """Create numeric labels for bound direction and return the label."""
+    """
+    Create numeric labels for bound direction and return the labels.
+    
+    Input(s): df_c (string) - data within column
+
+    Output(s): (int) - corresponding integer
+    """
     if(df_c == 'N'):
         return 1
     elif(df_c == 'S'):
@@ -48,15 +77,30 @@ def bound_encoding(df_c):
 
 #one-hot encoding of each unique Line
 def line_encoding(df_c):
-    """Create numeric labels for line and return the label."""
-    #We will need to find a way to encode lines, transits, and station using some sort of loop or built-in function
-   
+    """
+    Create numeric labels for line and return the labels and unique lines.
+    
+    Input(s): df_c (pandas) - column of dataframe
 
-    return df_c
+    Output(s): unique_lines (array) - an array of lines
+               encoding_lines (array) - an array of integers where different integers correspond to a line
+    """
+    
+    encoding_lines, unique_lines = pd.factorize(df_c) # Returns two arrays one encoding the column and another array containg the unique values in the column
+
+    return (encoding_lines, unique_lines)
 
 
 
 def preprocess_dataset(df):
+    """
+    Preprocesses dataset.
+    
+    Input(s): df (dataframe) - dataframe
+
+    Output(s): df (dataframe) - processed dataframe
+    """
+
     df = df.dropna() #drop NULL columns from df
     return df
 
