@@ -42,8 +42,8 @@ def main():
     print(test3_cp['Day_Of_Week'] == 1)
     print(test3_cp['Hour'].head())
     print(test3_cp['Month'].min())
-    # test2_cp = rush_hour(df_copy)
-    # print(test2_cp[test2_cp['Rush_Hour'] == 1])
+    test2_cp = rush_hour(df_copy)
+    print(test2_cp[test2_cp['Rush_Hour'] == 0])
 
 
     X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2, random_state=42) # aiming to predict two targets so must split y_reg as well. 

@@ -67,7 +67,7 @@ def time_group(df_c):
     return df_c
 
 
-#Creates a label for rush_hour (#NEED TO CORRECT LOGIC FOR WEEKEND VS WEEKDAY RUSH HOUR) 
+#Creates a label for rush_hour 
 def rush_hour(df_c):
     '''
     Creates a label for rush_hour
@@ -79,14 +79,14 @@ def rush_hour(df_c):
       df_c (Pandas Dataframe): dataframe of dataset (column)
     '''
 
-    weekday_rush = range(6,11)
-    weekday_even_rush = range(15, 20)
+    weekday_rush = [6,7,8,9,10]
+    weekend_end_rush = [15,16,17,18,19,20]
 
 
     df_c['Rush_Hour'] = 0
 
-    df_c.loc[df_c['Hour'].isin(weekday_rush), 'Rush_Hour'] = 1
-    df_c.loc[df_c['Hour'].isin(weekday_even_rush), 'Rush_Hour'] = 1
+    df_c.loc[df_c['Hour'].isin(weekday_rush) & df_c['Day_Of_Week'].isin([0,1,2,3,4]), 'Rush_Hour'] = 1
+    df_c.loc[df_c['Hour'].isin(weekend_end_rush) & df_c['Day_Of_Week'].isin([5,6]), 'Rush_Hour'] = 1
 
 
     return df_c
