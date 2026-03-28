@@ -5,7 +5,11 @@ import seaborn as sns
 
 import numpy as np
 import pandas as pd
+
 import sklearn as skl
+from sklearn import metrics
+from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
+from sklearn.metrics import accuracy_score
 
 # Visualize Functions
 # (We could/may use these for visualization for the report or within main.py)
@@ -108,7 +112,7 @@ def create_heatmap(y_test, y_pred, y_test_class, y_pred_class):
     
     Args:
         y_test  (dataframe): a dataframe column of a class representing test values
-        y_predicted (array): a dataframe column of the same class representing predicted values
+        y_predicted (array): a dataframe column of the same class representing predicted values (model predictions)
         y_test_class (string): name of y_test data
         y_pred_class (string): name of y_pred_class data
 
@@ -132,3 +136,27 @@ def create_heatmap(y_test, y_pred, y_test_class, y_pred_class):
     plt.title('Confusion matrix', y=1.1)
     plt.ylabel('Actual label')
     plt.xlabel('Predicted label')
+
+
+
+def get_performance_metrics(y_test, y_predicted):
+    '''
+    Calculate accuracy, precision, recall, f1-score, and kappa score. Returns: Dictionary of parameters
+    
+    Args:
+        y_test  (dataframe): a dataframe column of a class representing test values
+        y_predicted (array): a dataframe column of the same class representing predicted values (model predictions)
+
+    Return:
+        (dict): dictionary containing performance metrics
+    '''
+    
+    model_accuracy = accuracy_score(y_test, y_predicted)
+    model_precision, model_recall, model_f1, _ = precision_recall_fscore_support(y_test, y_predicted)
+    model_kappa = metrics.cohen_kappa_score(y_test, y_predicted)
+
+    # Confusion matrix
+    model_confusion_matrix = confusion_matrix(y_test, y_predicted)
+
+    # Return as dictionary
+    return {'Model_Accuracy': model_accuracy, 'Model_Precision': model_precision, 'Model_Recall': model_recall, 'Model_F1_Score': model_f1, 'Model_Kappa': model_kappa, 'Confusion_Matrix': model_confusion_matrix}

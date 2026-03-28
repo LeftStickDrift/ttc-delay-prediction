@@ -54,6 +54,7 @@ def main():
     #Preprocess data here
 
 
+
     #Then attain features from feature_engineering module to train the model
     # train_model(model,_, _)
 
@@ -63,8 +64,7 @@ def main():
     #after all transformation and feature gathering train and predict models
     
     #model = train_model(LinearRegression(), X_training_data, y_training_data)
-
-
+    
 
 
 
