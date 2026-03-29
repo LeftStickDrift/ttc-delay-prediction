@@ -14,29 +14,6 @@ from sklearn.metrics import accuracy_score
 # Visualize Functions
 # (We could/may use these for visualization for the report or within main.py)
 
-def lrm_between_two(dataset_df, response_v, independent_v):
-    '''
-    Creates a linear regression equation for two factors from a dataset.
-
-    Argument(s):
-      dataset_df (Pandas Dataframe): dataframe of dataset
-      response_v (str): response variable from dataset (y)
-      independent_v (str): independent variable from dataset to be compared with response variable (x)
-
-    Return(s):
-      lrm_equation (str): linear regression equation
-    '''
-
-    model = skl.linear_model.LinearRegression()
-    x = pd.DataFrame(dataset_df[independent_v])
-    y = pd.DataFrame(dataset_df[response_v])
-
-    model.fit(x, y)
-    lrm_equation = round(model.intercept_[0], 2).astype(str) + " + (" + round(model.coef_[0][0], 2).astype(str) + " * x." + independent_v + ")"
-
-    return(lrm_equation)
-
-
 def plotScatter(dataset_df, x_col, y_col):
     '''
     Plots a scatterplot for the dataframe based on two variables.
@@ -152,7 +129,7 @@ def get_performance_metrics(y_test, y_predicted):
     '''
     
     model_accuracy = accuracy_score(y_test, y_predicted)
-    model_precision, model_recall, model_f1, _ = precision_recall_fscore_support(y_test, y_predicted)
+    model_precision, model_recall, model_f1, _ = precision_recall_fscore_support(y_test, y_predicted, zero_division = 0)
     model_kappa = metrics.cohen_kappa_score(y_test, y_predicted)
 
     # Confusion matrix

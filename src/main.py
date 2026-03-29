@@ -12,6 +12,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report, precision_score, recall_score, f1_score, r2_score, accuracy_score, roc_auc_score, precision_recall_fscore_support, mean_squared_error, mean_absolute_error
 from sklearn import metrics
 
+
+from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import neighbors
+
+from visualization.visualize import get_performance_metrics
+
+
 def main():
     df = load_dataset('data/raw/ttc_dataset.csv') #raw immutable dataset DO NOT MODIFY
 
@@ -54,9 +63,10 @@ def main():
     print(X.info())
 
     #Delay_minutes predictions
+    
     model = train_model(LinearRegression(), X_train, y_reg_train) # can compare this model vs RandomForest
     y_pred_lr = predict(model,X_test) # , y_pred_proba_lr
-
+    
     print(y_pred_lr)
 
     print('Mean-Squared-Error', mean_squared_error(y_reg_test, y_pred_lr))
@@ -64,14 +74,49 @@ def main():
     print(mean_ab_er)
     print(r2_score(y_reg_test, y_pred_lr))
     print(y_reg_test.describe())
+    
+    
+    #Delay risk predictions
+    print("\n Delay Risk Predictions \n")
 
-    #Delay risk predictions 
+    # Create several models and compare to see which would be the most accurate for our data
     
+    fit_lda = train_model(LinearDiscriminantAnalysis(solver='svd'), X_train, y_reg_train)
+    y_pred_lda, y_pred_proba_lda = predict(fit_lda, X_test)   
+    pm_lda = get_performance_metrics(y_test, y_pred_lda)
+
+    fit_qda = train_model(QuadraticDiscriminantAnalysis(reg_param=0.5), X_train, y_reg_train)
+    y_pred_qda, y_pred_proba_qda = predict(fit_qda, X_test)   
+    pm_qda = get_performance_metrics(y_test, y_pred_qda)
     
+    fit_logit = train_model(LogisticRegression(random_state=42, max_iter=100), X_train, y_reg_train)
+    y_pred_logit, y_pred_proba_logit = predict(fit_logit, X_test)   
+    pm_logit = get_performance_metrics(y_test, y_pred_logit)
+
+    fit_dt = train_model(DecisionTreeClassifier(random_state=42), X_train, y_reg_train)
+    y_pred_dt, y_pred_proba_dt = predict(fit_dt, X_test)   
+    pm_dt = get_performance_metrics(y_test, y_pred_dt)
+
+    fit_knn = train_model(neighbors.KNeighborsClassifier(n_neighbors=5), X_train, y_reg_train)
+    y_pred_knn, y_pred_proba_knn = predict(fit_knn, X_test)   
+    pm_knn = get_performance_metrics(y_test, y_pred_knn)
+
+    result_evals = [pm_lda, pm_qda, pm_logit, pm_dt, pm_knn]
+    model_names = ['LDA', 'QDA', 'Logistic Regression', 'Decision Tree', 'KNN']
+
+    print("\n Model Performance Metrics \n")
+    for i in range(len(result_evals)):
+        print(f"{model_names[i]} model has an accuracy of {result_evals[i].get('Model_Accuracy'):.2f}")
+
+    # Based on results above, select model that seemingly has the best data (or possibly fine tune model further) and
+    # then conduct visualization of results
 
 
     # df_copy.info()
     # print(df_copy.head())
+
+
+
 
 if __name__ == "__main__":
     main() 

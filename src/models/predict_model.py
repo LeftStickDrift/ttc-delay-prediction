@@ -16,5 +16,5 @@ def predict(model, X):
     '''
     #must add cases to handle the type of model passed so certain prediction can be pased.  
     y_pred = model.predict(X)
-    # y_pred_proba = model.predict_proba(X)
-    return y_pred  #,y_pred_proba
+    y_pred_proba = model.predict_proba(X)
+    return y_pred,y_pred_proba
