@@ -53,7 +53,7 @@ def time_group(df_c):
       df_c (Pandas Dataframe): dataframe of dataset (column)
     '''
 
-    df_group = pd.to_datetime(df_c['Time']).dt.hour
+    df_group = pd.to_datetime(df_c['Time'], format="%H:%M").dt.hour
 
     labels = ['late night', 'early morning', 'noon', 'afternoon', 'evening', 'night']
     bins = [0, 4, 8, 12, 16, 20, 24] 
@@ -62,7 +62,7 @@ def time_group(df_c):
     df_c['Time_Group'] = pd.cut(df_group, bins=bins, labels=labels, right=False)
 
 
-
+    df_c = pd.get_dummies(df_c, columns=['Time_Group'])
 
     return df_c
 

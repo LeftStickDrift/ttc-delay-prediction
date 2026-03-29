@@ -23,7 +23,8 @@ def load_dataset(file_path):
 
 
 #General subroutines that can be implemented in preprocessing_data function set. 
-#Not sure how useful this will be.
+
+#For the encoding one-hot encoding would be most effective as ranking of values would not be prevalent. Just modified the factorization to return encoded columns. 
 def station_encoding(df_c):
     """
     Create numeric labels for stations and return the labels and unique stations.
@@ -32,13 +33,12 @@ def station_encoding(df_c):
       df_c (pandas) - column of dataframe
 
     Return(s):
-      unique_stations (array) - an array of tranist codes
-      encoding_stations (array) - an array of integers where different integers correspond to a line
+      df_c(panda) - modified Station column with unique numerical values
     """
     
-    encoding_stations, unique_stations = pd.factorize(df_c) # Returns two arrays one encoding the column and another array containg the unique values in the column
+    df_c['Station'] = pd.factorize(df_c['Station'])[0] # 
 
-    return (encoding_stations, unique_stations)
+    return df_c
 
 
 
@@ -51,13 +51,12 @@ def transit_code_encoding(df_c):
       df_c (pandas) - column of dataframe
 
     Return(s):
-      unique_tc (array) - an array of tranist codes
-      encoding_tc (array) - an array of integers where different integers correspond to a line
+      df_c(panda) - modified Station column with unique numerical values
     """
 
-    encoding_tc, unique_tc = pd.factorize(df_c) # Returns two arrays one encoding the column and another array containg the unique values in the column
+    df_c['Code'] = pd.factorize(df_c['Code'])[0] # 
 
-    return (encoding_tc, unique_tc)
+    return df_c
     
 
 
@@ -74,14 +73,12 @@ def bound_encoding(df_c):
       (int) - corresponding integer
     """
 
-    if(df_c == 'N'):
-        return 1
-    elif(df_c == 'S'):
-        return 2
-    elif(df_c == 'E'):
-        return 3
-    elif(df_c == 'W'):
-        return 4
+    
+    df_c['Bound'] = pd.factorize(df_c['Bound'])[0]
+    
+    
+    
+    return df_c
 
 
 
@@ -94,13 +91,12 @@ def line_encoding(df_c):
       df_c (pandas) - column of dataframe
 
     Return(s):
-      unique_lines (array) - an array of lines
-      encoding_lines (array) - an array of integers where different integers correspond to a line
+      df_c(panda) - modified Line column with unique numerical values
     """
     
-    encoding_lines, unique_lines = pd.factorize(df_c) # Returns two arrays one encoding the column and another array containg the unique values in the column
+    df_c['Line'] = pd.factorize(df_c['Line'])[0] #
 
-    return (encoding_lines, unique_lines)
+    return df_c
 
 
 
