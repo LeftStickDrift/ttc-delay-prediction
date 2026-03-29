@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as np 
+from sklearn.linear_model import LinearRegression
 
 
 def predict(model, X):
@@ -16,5 +17,8 @@ def predict(model, X):
     '''
     #must add cases to handle the type of model passed so certain prediction can be pased.  
     y_pred = model.predict(X)
+    if isinstance(model, LinearRegression):
+      return y_pred
+
     y_pred_proba = model.predict_proba(X)
     return y_pred,y_pred_proba

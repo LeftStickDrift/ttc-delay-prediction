@@ -60,18 +60,20 @@ def main():
 
     print(X.info())
 
-    #Delay_minutes predictions
-    
-    # model = train_model(LinearRegression(), X_train, y_reg_train) # can compare this model vs RandomForest
-    # y_pred_lr = predict(model,X_test) # , y_pred_proba_lr
-    
-    # print(y_pred_lr)
 
-    # print('Mean-Squared-Error', mean_squared_error(y_reg_test, y_pred_lr))
-    # mean_ab_er=  mean_absolute_error(y_reg_test, y_pred_lr)
-    # print(mean_ab_er)
-    # print(r2_score(y_reg_test, y_pred_lr))
-    # print(y_reg_test.describe())
+    #Delay_minutes predictions
+    print(10 * '-' + "Regression problem Results" + 10 * '-')
+    model = train_model(LinearRegression(), X_train, y_reg_train) # can compare this model vs RandomForest
+    y_pred_lr = predict(model,X_test) # , y_pred_proba_lr
+    
+    print(y_pred_lr)
+    print(y_reg_test)
+
+    print('Mean-Squared-Error:', mean_squared_error(y_reg_test, y_pred_lr))
+    print('Mean-Absolute-Error:', mean_absolute_error(y_reg_test, y_pred_lr))
+    print('R2:', r2_score(y_reg_test, y_pred_lr))
+    print(y_reg_test.describe())
+    
     
     
     #Delay risk predictions
@@ -108,8 +110,6 @@ def main():
 
     # Based on results above, select model that seemingly has the best data (or possibly fine tune model further) and
     # then conduct visualization of results
-
-    print(y_test)
 
     # df_copy.info()
     # print(df_copy.head())
