@@ -85,16 +85,18 @@ def kfold_cv(model, X, y, k=20):
 
 def grid_search(model, X, y, max_depth_range_list, min_sample_split_list):
     '''
-    Perform K-Fold Cross Validation given a model and x and y classes.
+    Perform grid search cross validation given a model, x and y classes, and maxiimum depth and mininum sample ranges.
 
     Argument(s):
       model (machine learning model): model
       X (dataframe): column / class of data
       y (dataframe): column / class of data
-      k (int): number of folds
+      max_depth_range_list (list): list of maximum depth values to test
+      min_sample_split_list (list): list of minimum sample split values to test
 
     Return(s):
-      model (machine learning model): K-Fold Cross Validation model
+      best_model (machine learning model): best model from grid search
+      best_params (dict): best parameters from grid search
     '''
 
     param_grid = {
@@ -109,7 +111,10 @@ def grid_search(model, X, y, max_depth_range_list, min_sample_split_list):
     print('Improved score: ', grid.best_score_)
     print('Improved parameters: ', grid.best_params_)
 
-    return (grid.best_estimator_, grid.best_params_)
+    best_model = grid.best_estimator_
+    best_params = grid.best_params_
+
+    return (best_model, best_params)
 
 def main():
     df = load_dataset('data/raw/ttc_dataset.csv') #raw immutable dataset DO NOT MODIFY
@@ -239,9 +244,8 @@ def main():
     print("\n K-Fold Cross Validation Scores for Tuned Decision Tree Model \n")
     plot_acc(kfold_scores_dt)
     '''
-    # Based on the results, the optimal number of kfolds seems to be 8 and the
-    # best decision tree model has an accuracy of 80% with a max depth of 5 and 
-    # min sample split of 16 under 20 folds.
+    # Based on the results, the optimal number of kfolds seems to be 8 (based on the accuracy plot) and the
+    # best decision tree model has an accuracy of 80% with a max depth of 20 and min sample split of 64 under 20 folds.
 
     # df_copy.info()
     # print(df_copy.head())
