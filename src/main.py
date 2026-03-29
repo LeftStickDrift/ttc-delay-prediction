@@ -8,9 +8,8 @@ from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
-
 #model testing purposes can move this to a seperate .py folder
-from sklearn.metrics import confusion_matrix, classification_report, precision_score, recall_score, f1_score, r2_score, accuracy_score, roc_auc_score, precision_recall_fscore_support
+from sklearn.metrics import confusion_matrix, classification_report, precision_score, recall_score, f1_score, r2_score, accuracy_score, roc_auc_score, precision_recall_fscore_support, mean_squared_error, mean_absolute_error
 from sklearn import metrics
 
 def main():
@@ -38,6 +37,10 @@ def main():
 
     #model = train_model(LinearRegression(), X_training_data, y_training_data)
 
+    #remove this 
+    # print(df_copy[df_copy['Delay_Minutes'] > 350]) # model is dominated by outliers
+    df_copy = df_copy[df_copy['Delay_Minutes'] < 60] # remove this once you better tune your model 
+
     #target variables
     y_reg = df_copy['Delay_Minutes'] # regression problem
     y = df_copy['Delay_Risk'] # yes/no classification problem
@@ -46,42 +49,29 @@ def main():
     X = df_copy.drop(columns=['Delay_Risk','Date', 'Min Gap', 'Delay_Minutes', 'Time', 'Day', '_id'])
 
 
-
-    # test_cp = time_group(df_copy)
-    # print(test_cp['Time_Group'])
-
-    
-
-    # test3_cp = weekday_hour_month_encoding(df_copy)
-    # print(test3_cp['Day_Of_Week'] == 1)
-    # print(test3_cp['Hour'].head())
-    # print(test3_cp['Month'].min())
-    # test2_cp = rush_hour(df_copy)
-    # print(test2_cp[test2_cp['Rush_Hour'] == 0])
-
-
     X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2, random_state=42) # aiming to predict two targets so must split y_reg as well. 
 
     print(X.info())
 
+    #Delay_minutes predictions
+    model = train_model(LinearRegression(), X_train, y_reg_train) # can compare this model vs RandomForest
+    y_pred_lr = predict(model,X_test) # , y_pred_proba_lr
 
-    #Preprocess data here
+    print(y_pred_lr)
 
+    print('Mean-Squared-Error', mean_squared_error(y_reg_test, y_pred_lr))
+    mean_ab_er=  mean_absolute_error(y_reg_test, y_pred_lr)
+    print(mean_ab_er)
+    print(r2_score(y_reg_test, y_pred_lr))
+    print(y_reg_test.describe())
 
+    #Delay risk predictions 
+    
+    
 
-    #Then attain features from feature_engineering module to train the model
-    # train_model(model,_, _)
 
     # df_copy.info()
     # print(df_copy.head())
-
-    #after all transformation and feature gathering train and predict models
-    
-    #model = train_model(LinearRegression(), X_training_data, y_training_data)
-    
-
-
-
 
 if __name__ == "__main__":
     main() 
