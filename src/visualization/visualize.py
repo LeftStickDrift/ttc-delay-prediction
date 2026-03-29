@@ -48,7 +48,7 @@ def plotHistogram(dataset_df, col):
     dataset_df.hist(column=col)
 
 
-def display_metrics(y_true, y_pred):
+def display_metrics(y_true, y_pred): # We can remove this function (?)
     '''
     Display the mean square error, root mean square error, and R^2 metric
     about the model.
@@ -67,7 +67,7 @@ def display_metrics(y_true, y_pred):
 
 
 
-def create_confusion_matrix(y_test, y_pred):
+def create_confusion_matrix(y_test, y_pred): # We can remove this function (?)
     '''
     Create a confusion matrix for a class between a test and predicted data.
     
@@ -83,7 +83,7 @@ def create_confusion_matrix(y_test, y_pred):
     return (cnf_matrix)
 
 
-def create_heatmap(y_test, y_pred, y_test_class, y_pred_class):
+def create_heatmap(y_test, y_pred, y_test_class, y_pred_class): # We can remove this function (?)
     '''
     Display the heatmap between a test and predicted class.
     
@@ -116,7 +116,7 @@ def create_heatmap(y_test, y_pred, y_test_class, y_pred_class):
 
 
 
-def get_performance_metrics(y_test, y_predicted):
+def get_performance_metrics(y_test, y_predicted): # Keep function (remove this comment later)
     '''
     Calculate accuracy, precision, recall, f1-score, and kappa score. Returns: Dictionary of parameters
     
@@ -137,3 +137,26 @@ def get_performance_metrics(y_test, y_predicted):
 
     # Return as dictionary
     return {'Model_Accuracy': model_accuracy, 'Model_Precision': model_precision, 'Model_Recall': model_recall, 'Model_F1_Score': model_f1, 'Model_Kappa': model_kappa, 'Confusion_Matrix': model_confusion_matrix}
+
+
+def plot_acc(scores):
+    """Creates a plot of accuracy vs k-fold. Returns: None"""
+    '''
+    Creates a plot of accuracy vs k-fold.
+    
+    Args:
+        scores (list): a list of accuracy scores for each fold
+
+    Return:
+        None
+    '''
+
+    plt.plot(scores)
+
+    plt.xlabel("Fold")
+    plt.ylabel("Accuracy Score")
+    plt.title("K-Fold Cross Validation")
+    #plt.draw()
+    plt.tight_layout()
+    plt.show()
+    plt.close()
