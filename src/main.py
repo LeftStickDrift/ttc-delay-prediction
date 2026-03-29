@@ -44,8 +44,6 @@ def main():
     df_copy = weekday_hour_month_encoding(df_copy)
     df_copy = rush_hour(df_copy)
 
-    #model = train_model(LinearRegression(), X_training_data, y_training_data)
-
     #remove this 
     # print(df_copy[df_copy['Delay_Minutes'] > 350]) # model is dominated by outliers
     df_copy = df_copy[df_copy['Delay_Minutes'] < 60] # remove this once you better tune your model 
@@ -64,16 +62,16 @@ def main():
 
     #Delay_minutes predictions
     
-    model = train_model(LinearRegression(), X_train, y_reg_train) # can compare this model vs RandomForest
-    y_pred_lr = predict(model,X_test) # , y_pred_proba_lr
+    # model = train_model(LinearRegression(), X_train, y_reg_train) # can compare this model vs RandomForest
+    # y_pred_lr = predict(model,X_test) # , y_pred_proba_lr
     
-    print(y_pred_lr)
+    # print(y_pred_lr)
 
-    print('Mean-Squared-Error', mean_squared_error(y_reg_test, y_pred_lr))
-    mean_ab_er=  mean_absolute_error(y_reg_test, y_pred_lr)
-    print(mean_ab_er)
-    print(r2_score(y_reg_test, y_pred_lr))
-    print(y_reg_test.describe())
+    # print('Mean-Squared-Error', mean_squared_error(y_reg_test, y_pred_lr))
+    # mean_ab_er=  mean_absolute_error(y_reg_test, y_pred_lr)
+    # print(mean_ab_er)
+    # print(r2_score(y_reg_test, y_pred_lr))
+    # print(y_reg_test.describe())
     
     
     #Delay risk predictions
@@ -81,23 +79,23 @@ def main():
 
     # Create several models and compare to see which would be the most accurate for our data
     
-    fit_lda = train_model(LinearDiscriminantAnalysis(solver='svd'), X_train, y_reg_train)
+    fit_lda = train_model(LinearDiscriminantAnalysis(solver='svd'), X_train, y_train)
     y_pred_lda, y_pred_proba_lda = predict(fit_lda, X_test)   
     pm_lda = get_performance_metrics(y_test, y_pred_lda)
 
-    fit_qda = train_model(QuadraticDiscriminantAnalysis(reg_param=0.5), X_train, y_reg_train)
+    fit_qda = train_model(QuadraticDiscriminantAnalysis(reg_param=0.5), X_train, y_train)
     y_pred_qda, y_pred_proba_qda = predict(fit_qda, X_test)   
     pm_qda = get_performance_metrics(y_test, y_pred_qda)
     
-    fit_logit = train_model(LogisticRegression(random_state=42, max_iter=100), X_train, y_reg_train)
+    fit_logit = train_model(LogisticRegression(random_state=42, max_iter=100), X_train, y_train)
     y_pred_logit, y_pred_proba_logit = predict(fit_logit, X_test)   
     pm_logit = get_performance_metrics(y_test, y_pred_logit)
 
-    fit_dt = train_model(DecisionTreeClassifier(random_state=42), X_train, y_reg_train)
+    fit_dt = train_model(DecisionTreeClassifier(random_state=42), X_train, y_train)
     y_pred_dt, y_pred_proba_dt = predict(fit_dt, X_test)   
     pm_dt = get_performance_metrics(y_test, y_pred_dt)
 
-    fit_knn = train_model(neighbors.KNeighborsClassifier(n_neighbors=5), X_train, y_reg_train)
+    fit_knn = train_model(neighbors.KNeighborsClassifier(n_neighbors=5), X_train, y_train)
     y_pred_knn, y_pred_proba_knn = predict(fit_knn, X_test)   
     pm_knn = get_performance_metrics(y_test, y_pred_knn)
 
@@ -111,6 +109,7 @@ def main():
     # Based on results above, select model that seemingly has the best data (or possibly fine tune model further) and
     # then conduct visualization of results
 
+    print(y_test)
 
     # df_copy.info()
     # print(df_copy.head())
