@@ -162,7 +162,7 @@ def plot_residual(model_name, y_test, y_pred):
 
     plt.figure(figsize=(10, 6))
     plt.scatter(x=y_pred, y=residual) # How far the 
-    plt.title(f'{model_name} + " Residuals"')
+    plt.title(f'{model_name} Residuals')
     plt.xlabel("Predicted")
     plt.ylabel("Residual")
     plt.show()
