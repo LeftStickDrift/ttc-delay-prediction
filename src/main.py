@@ -243,15 +243,7 @@ def main():
     best_dt_model, best_dt_params = grid_search(DecisionTreeClassifier(random_state=42), X, y, max_depth_range_list, min_sample_split_list)
     print(f"Best Decision Tree Model: {best_dt_model}")
     print(f"Best Decision Tree Parameters: {best_dt_params}")  
-
-
-    # I commented this out, if you run this it will output a plot of accuracy vs. k-fold scores for DT model
-    '''
-    print("\n K-Fold Cross Validation Scores for Tuned Decision Tree Model \n")
-    plot_acc(kfold_scores_dt)
-    '''
-    # Based on the results, the optimal number of kfolds seems to be 8 (based on the accuracy plot) and the
-    # best decision tree model has an accuracy of 80% with a max depth of 20 and min sample split of 64 under 20 folds.
+    
 
     # Visualize the results of Decision Tree model
     print("\n K-Fold Cross Validation Scores for Tuned Decision Tree Model \n")
