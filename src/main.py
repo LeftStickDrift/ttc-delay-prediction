@@ -17,7 +17,7 @@ from sklearn import neighbors
 
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import KFold, GridSearchCV
-from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model, plot_actual_and_predicted
+from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model, plot_actual_and_predicted, plot_residual
 
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
@@ -258,16 +258,23 @@ def main():
     print("-" * 10)
 
     #Visualize Regression models 
-    print("\n Scatterplot of Linear Regression \n")
+    print("\n Scatterplots for Linear Regression \n")
     plot_actual_and_predicted("Linear Regression", y_reg_test, y_pred_lr)
     print("-" * 10)
+    plot_residual("Linear Regression", y_reg_test, y_pred_lr)
+    print("-" * 10)
 
-    print("\n Scatterplot of DecisionTree Regressor \n")
+    print("\n Scatterplots for DecisionTree Regressor \n")
     plot_actual_and_predicted("DecisionTree Regressor", y_reg_test, y_pred_tree)
     print("-" * 10)
+    plot_residual("DecisionTree Regressor", y_reg_test, y_pred_tree)
+    print("-" * 10)
     
-    print("\n Scatterplot of RandomTree Regressor \n")
+    
+    print("\n Scatterplots for RandomTree Regressor \n")
     plot_actual_and_predicted("RandomTree Regressor", y_reg_test, y_pred_rantree)
+    print("-" * 10)
+    plot_residual("RandomTree Regressor", y_reg_test, y_pred_rantree)
     print("-" * 10)
     
     

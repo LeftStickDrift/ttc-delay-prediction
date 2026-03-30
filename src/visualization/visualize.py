@@ -137,3 +137,27 @@ def plot_actual_and_predicted(model_name,y_test, y_pred):
     plt.show()
 
 
+def plot_residual(model_name, y_test, y_pred):
+    '''
+    Plots the observed difference between y_test and y_pred.
+    
+    Args:
+        y_test (dataframe): a dataframe column containing the actual response
+        y_pred (array): a dataframe column class representing predicted values (model predictions)
+
+    Return:
+        None
+    '''
+
+    residual = y_test - y_pred 
+
+    plt.figure(figsize=(10, 6))
+    plt.scatter(x=y_pred, y=residual) # How far the 
+    plt.title(f'{model_name} + " Residuals"')
+    plt.xlabel("Predicted")
+    plt.ylabel("Residual")
+    plt.show()
+
+
+
+
