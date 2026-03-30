@@ -2,13 +2,18 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 from preprocessing_data.preprocess import load_dataset, preprocess_dataset, station_encoding, transit_code_encoding, bound_encoding, line_encoding  
 from feature_engineering.build_features import time_group, rush_hour, weekday_hour_month_encoding
+
 from models.train_model import train_model
 from models.predict_model import predict
+
+from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model
+
+import pandas as pd
+
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
-
 
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
@@ -17,10 +22,15 @@ from sklearn import neighbors
 
 from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.model_selection import cross_val_score, KFold, GridSearchCV
-from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model
 
-import pandas as pd
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
+# To deal with K-fold cross validation limit error during logistic regression model validation (scales data and increase iteration limit)
+pipe = Pipeline([
+    ('scaler', StandardScaler()),
+    ('linear', LogisticRegression(random_state=42, max_iter=1000))
+])
 
 # CONSTANTS
 max_depth_range_list = [None, 5, 10, 15, 20, 35, 40, 45, 50]
@@ -192,7 +202,7 @@ def main():
     y_pred_qda, y_pred_proba_qda = predict(fit_qda, X_test)   
     pm_qda = get_performance_metrics(y_test, y_pred_qda)
     
-    fit_logit = train_model(LogisticRegression(random_state=42, max_iter=100), X_train, y_train)
+    fit_logit = train_model(pipe, X_train, y_train) # Pipepline for logistic regression to deal with iteration limit error
     y_pred_logit, y_pred_proba_logit = predict(fit_logit, X_test)   
     pm_logit = get_performance_metrics(y_test, y_pred_logit)
 
@@ -221,7 +231,8 @@ def main():
 
     kfold_scores_qda = kfold_cv(QuadraticDiscriminantAnalysis(reg_param=0.5), X, y)
 
-    kfold_scores_logit = kfold_cv(LogisticRegression(random_state=42, max_iter=100), X, y)
+    #kfold_scores_logit = kfold_cv(LinearRegression(), X, y)
+    kfold_scores_logit = kfold_cv(pipe, X, y) # Pipepline for logistic regression to deal with k-fold cross validation iteration limit error
 
     kfold_scores_dt = kfold_cv(DecisionTreeClassifier(random_state=42), X, y)
 
@@ -235,7 +246,7 @@ def main():
     
 
     # Use Grid Search to fine tune the decision tree model
-    print("\n Grid Search for Decision Tree Model \n")
+    print("\n Grid Search for Decision Tree Model")
     best_dt_model, best_dt_params = grid_search(DecisionTreeClassifier(random_state=42), X, y, max_depth_range_list, min_sample_split_list)
     print(f"Best Decision Tree Model: {best_dt_model}")
     print(f"Best Decision Tree Parameters: {best_dt_params}")  
