@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as np 
 from sklearn.linear_model import LinearRegression
-
+from sklearn.tree import  DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
 
 def predict(model, X):
     '''
@@ -17,7 +18,7 @@ def predict(model, X):
     '''
     #must add cases to handle the type of model passed so certain prediction can be pased.  
     y_pred = model.predict(X)
-    if isinstance(model, LinearRegression):
+    if isinstance(model, (LinearRegression, DecisionTreeRegressor, RandomForestRegressor)):
       return y_pred
 
     y_pred_proba = model.predict_proba(X)

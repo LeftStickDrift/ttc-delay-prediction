@@ -6,19 +6,16 @@ from models.train_model import train_model
 from models.predict_model import predict
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
-#model testing purposes can move this to a seperate .py folder
-from sklearn.metrics import confusion_matrix, classification_report, precision_score, recall_score, f1_score, r2_score, accuracy_score, roc_auc_score, precision_recall_fscore_support, mean_squared_error, mean_absolute_error
-from sklearn import metrics
 
 
-from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn import neighbors
 
-from visualization.visualize import get_performance_metrics
+from visualization.visualize import get_performance_metrics, display_metrics
 
 
 def main():
@@ -63,18 +60,28 @@ def main():
 
     #Delay_minutes predictions
     print(10 * '-' + "Regression problem Results" + 10 * '-')
+    print("\nLinearRegression results:")
     model = train_model(LinearRegression(), X_train, y_reg_train) # can compare this model vs RandomForest
     y_pred_lr = predict(model,X_test) # , y_pred_proba_lr
-    
-    print(y_pred_lr)
-    print(y_reg_test)
+    display_metrics(y_reg_test, y_pred_lr) #visualization 
 
-    print('Mean-Squared-Error:', mean_squared_error(y_reg_test, y_pred_lr))
-    print('Mean-Absolute-Error:', mean_absolute_error(y_reg_test, y_pred_lr))
-    print('R2:', r2_score(y_reg_test, y_pred_lr))
+    #DecisionTree regression and grid_searchcv
+    print("\nDescisionTree results:")
+
+    model_reg_tree = train_model(DecisionTreeRegressor(random_state=42), X_train, y_reg_train)
+    y_pred_tree = predict(model_reg_tree, X_test) 
+    display_metrics(y_reg_test, y_pred_tree) #visualization 
+
+
+    #RandomForest regression and grid_searchcv
+    print("\nRandomTree results:")
+
+    model_ran_tree = train_model(RandomForestRegressor(random_state=42, n_jobs=-1), X_train, y_reg_train)
+    y_pred_rantree = predict(model_ran_tree, X_test) 
+    display_metrics(y_reg_test, y_pred_rantree) #visualization 
+
+    print("\nActual test data Statistics")
     print(y_reg_test.describe())
-    
-    
     
     #Delay risk predictions
     print("\n Delay Risk Predictions \n")

@@ -63,7 +63,7 @@ def display_metrics(y_true, y_pred):
     
     print(f'Mean Square Error: {skl.metrics.mean_squared_error(y_true, y_pred)}')
     print(f'Root Mean Square Error: {np.sqrt(skl.metrics.mean_squared_error(y_true, y_pred))}')
-    print(f'R-Sqaure: {skl.metrics.r2_score(y_true, y_pred)}')
+    print(f'R-Square: {skl.metrics.r2_score(y_true, y_pred)}')
 
 
 
