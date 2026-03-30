@@ -159,7 +159,7 @@ def main():
 
     print(X.info())
 
-    '''
+    
     #Delay_minutes predictions
     print(10 * '-' + "Regression problem Results" + 10 * '-')
     print("\nLinearRegression results:")
@@ -188,7 +188,7 @@ def main():
     #Delay risk predictions
     print("\n Delay Risk Predictions \n")
     print(10 * '-' + "Classification Problem Results" + 10 * '-')
-    '''
+    
     
     # Create several models and compare to see which would be the most accurate for our data
     
