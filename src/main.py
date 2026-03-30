@@ -6,22 +6,17 @@ from feature_engineering.build_features import time_group, rush_hour, weekday_ho
 from models.train_model import train_model
 from models.predict_model import predict
 
-from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model
-
 import pandas as pd
-
-from sklearn.linear_model import LinearRegression, LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn import neighbors
 
-from sklearn.metrics import accuracy_score, roc_auc_score
-from sklearn.model_selection import cross_val_score, KFold, GridSearchCV
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import KFold, GridSearchCV
 from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model, plot_actual_and_predicted
 
 from sklearn.pipeline import Pipeline
@@ -268,11 +263,11 @@ def main():
     print("-" * 10)
 
     print("\n Scatterplot of DecisionTree Regressor \n")
-    plot_actual_and_predicted("DecisionTree Regressor", y_reg_test, y_pred_lr)
+    plot_actual_and_predicted("DecisionTree Regressor", y_reg_test, y_pred_tree)
     print("-" * 10)
     
     print("\n Scatterplot of RandomTree Regressor \n")
-    plot_actual_and_predicted("RandomTree Regressor", y_reg_test, y_pred_lr)
+    plot_actual_and_predicted("RandomTree Regressor", y_reg_test, y_pred_rantree)
     print("-" * 10)
     
     

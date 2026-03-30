@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 
 
 def weekday_hour_month_encoding(df_c):
