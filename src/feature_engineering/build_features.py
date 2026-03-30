@@ -1,3 +1,12 @@
+'''
+-------------------------------------------------------
+Methods for feature engineering.
+-------------------------------------------------------
+Author(s): Arbert Owusu & Jeryshan Varatheswaran
+Date last updated: 2026-03-29
+-------------------------------------------------------
+'''
+
 import pandas as pd
 
 

@@ -1,3 +1,12 @@
+'''
+-------------------------------------------------------
+Predicts values and probability for a model.
+-------------------------------------------------------
+Author(s): Arbert Owusu & Jeryshan Varatheswaran
+Date last updated: 2026-03-29
+-------------------------------------------------------
+'''
+
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import  DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor

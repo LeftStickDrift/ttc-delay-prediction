@@ -1,3 +1,12 @@
+'''
+-------------------------------------------------------
+Functions used to proprocess the dataset.
+-------------------------------------------------------
+Author(s): Arbert Owusu & Jeryshan Varatheswaran
+Date last updated: 2026-03-29
+-------------------------------------------------------
+'''
+
 import pandas as pd
 
 

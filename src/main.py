@@ -1,3 +1,13 @@
+'''
+-------------------------------------------------------
+Finds a machine learning model suitable for our dataset 
+and displays results.
+-------------------------------------------------------
+Author(s): Arbert Owusu & Jeryshan Varatheswaran
+Date last updated: 2026-03-29
+-------------------------------------------------------
+'''
+
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 from preprocessing_data.preprocess import load_dataset, preprocess_dataset, station_encoding, transit_code_encoding, bound_encoding, line_encoding  

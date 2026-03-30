@@ -1,3 +1,12 @@
+'''
+-------------------------------------------------------
+Methods for visualization results and perofrmance of 
+models.
+-------------------------------------------------------
+Author(s): Arbert Owusu & Jeryshan Varatheswaran
+Date last updated: 2026-03-29
+-------------------------------------------------------
+'''
 
 #import appropriate modules
 import matplotlib.pyplot as plt 
@@ -31,7 +40,7 @@ def display_metrics(y_true, y_pred):
     print(f'R-Square: {skl.metrics.r2_score(y_true, y_pred)}')
 
 
-def get_performance_metrics(y_test, y_predicted): # Keep function (remove this comment later)
+def get_performance_metrics(y_test, y_predicted):
     '''
     Calculate accuracy, precision, recall, f1-score, and kappa score. Returns: Dictionary of parameters
     
