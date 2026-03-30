@@ -250,7 +250,7 @@ def main():
 
     print("\n K-Fold Cross Validation Model Performance Metrics \n")
     for i in range(len(kfold_evals)):
-        print(f"{model_names[i]} model 10-Fold Cross Validation Scores\n{kfold_evals[i]}\n")
+        print(f"{model_names[i]} model 20-Fold Cross Validation Scores\n{kfold_evals[i]}\n")
     
 
     # Use Grid Search to fine tune the decision tree model
