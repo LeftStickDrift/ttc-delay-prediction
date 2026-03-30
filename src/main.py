@@ -118,6 +118,7 @@ def grid_search(model, X, y, max_depth_range_list, min_sample_split_list):
 
     return (best_model, best_params)
 
+
 def main():
     df = load_dataset('data/raw/ttc_dataset.csv') #raw immutable dataset DO NOT MODIFY
 
@@ -143,6 +144,10 @@ def main():
 
     df_copy = df_copy[df_copy['Delay_Minutes'] < 60] 
 
+    #Store processed and feature engineered dataset
+    df_copy.to_csv('data/processed/processed_ttc_dataset.csv', index=False)
+
+
     #target variables
     y_reg = df_copy['Delay_Minutes'] # regression problem
     y = df_copy['Delay_Risk'] # yes/no classification problem
@@ -150,12 +155,11 @@ def main():
     #predictors/features
     X = df_copy.drop(columns=['Delay_Risk','Date', 'Min Gap', 'Delay_Minutes', 'Time', 'Day', '_id'])
 
-
     X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2, random_state=42) # splits for regression responses(y_reg/y_reg_test) and classification response (y_train/y_test). 
 
     print(X.info())
 
-    
+    '''
     #Delay_minutes predictions
     print(10 * '-' + "Regression problem Results" + 10 * '-')
     print("\nLinearRegression results:")
@@ -184,7 +188,7 @@ def main():
     #Delay risk predictions
     print("\n Delay Risk Predictions \n")
     print(10 * '-' + "Classification Problem Results" + 10 * '-')
-
+    '''
     
     # Create several models and compare to see which would be the most accurate for our data
     
