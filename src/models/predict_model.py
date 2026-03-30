@@ -1,5 +1,3 @@
-import numpy as np
-import pandas as np 
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import  DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor

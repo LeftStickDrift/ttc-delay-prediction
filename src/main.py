@@ -17,7 +17,7 @@ from sklearn import neighbors
 
 from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.model_selection import cross_val_score, KFold, GridSearchCV
-from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model
+from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model, plot_actual_and_predicted
 
 import pandas as pd
 
@@ -135,8 +135,6 @@ def main():
     df_copy = weekday_hour_month_encoding(df_copy)
     df_copy = rush_hour(df_copy)
 
-    #remove this 
-    # print(df_copy[df_copy['Delay_Minutes'] > 350]) # model is dominated by outliers
     df_copy = df_copy[df_copy['Delay_Minutes'] < 60] # remove this once you better tune your model 
 
     #target variables
@@ -147,7 +145,7 @@ def main():
     X = df_copy.drop(columns=['Delay_Risk','Date', 'Min Gap', 'Delay_Minutes', 'Time', 'Day', '_id'])
 
 
-    X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2, random_state=42) # aiming to predict two targets so must split y_reg as well. 
+    X_train, X_test, y_train, y_test, y_reg_train, y_reg_test= train_test_split(X, y, y_reg, test_size=0.2, random_state=42) # splits for regression responses(y_reg/y_reg_test) and classification response (y_train/y_test). 
 
     print(X.info())
 
@@ -256,9 +254,20 @@ def main():
     plot_scatterplot_model('Decision Tree', 'Month', 'Rush_Hour', X_test, y_pred_dt)
     print("-" * 10)
 
+    #Visualize Regression models 
+    print("\n Scatterplot of Linear Regression \n")
+    plot_actual_and_predicted("Linear Regression", y_reg_test, y_pred_lr)
+    print("-" * 10)
 
-    # df_copy.info()
-    # print(df_copy.head())
+    print("\n Scatterplot of DecisionTree Regressor \n")
+    plot_actual_and_predicted("DecisionTree Regressor", y_reg_test, y_pred_lr)
+    print("-" * 10)
+    
+    print("\n Scatterplot of RandomTree Regressor \n")
+    plot_actual_and_predicted("RandomTree Regressor", y_reg_test, y_pred_lr)
+    print("-" * 10)
+    
+    
 
 
 

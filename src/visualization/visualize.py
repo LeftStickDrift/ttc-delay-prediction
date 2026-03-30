@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import numpy as np
-import pandas as pd
 
 import sklearn as skl
 from sklearn import metrics
@@ -115,3 +114,26 @@ def plot_scatterplot_model(model_name, x_col_name, y_col_name,X_test, y_pred):
     plt.xlabel(x_col_name)
     plt.ylabel(y_col_name)
     plt.show()
+
+
+def plot_actual_and_predicted(model_name,y_test, y_pred):
+    '''
+    Plots a the actual data vs the predicted data of a given model.
+    
+    Args:
+        y_test (dataframe): a dataframe column containing the actual response
+        y_pred (array): a dataframe column class representing predicted values (model predictions)
+
+    Return:
+        None
+    '''
+    plt.figure(figsize=(10, 6))
+    plt.scatter(x=y_test, y=y_pred)
+    a,b = np.polyfit(y_test, y_pred, 1)
+    plt.plot(y_test, a* y_test + b, color="black") #line of best fit
+    plt.title(f'{model_name} Actual values vs ' + 'Predicted values')
+    plt.xlabel("Actual")
+    plt.ylabel("Predicted")
+    plt.show()
+
+

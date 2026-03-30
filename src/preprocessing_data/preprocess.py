@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-from sklearn import preprocessing 
 
 
 def load_dataset(file_path):
@@ -22,9 +20,7 @@ def load_dataset(file_path):
 
 
 
-#General subroutines that can be implemented in preprocessing_data function set. 
-
-#For the encoding one-hot encoding would be most effective as ranking of values would not be prevalent. Just modified the factorization to return encoded columns. 
+#General subroutines that can be implemented in preprocessing_data function set.  
 def station_encoding(df_c):
     """
     Create numeric labels for stations and return the labels and unique stations.
