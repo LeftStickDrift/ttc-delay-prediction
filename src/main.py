@@ -23,8 +23,8 @@ import pandas as pd
 
 
 # CONSTANTS
-max_depth_range_list = [0, 5, 10, 15, 20, 35, 40, 45, 50]
-min_sample_split_list = [1, 2, 4, 8, 16, 32, 64]
+max_depth_range_list = [None, 5, 10, 15, 20, 35, 40, 45, 50]
+min_sample_split_list = [2, 4, 8, 16, 32, 64]
 
 
 def kfold_cv(model, X, y, k=20):
@@ -104,7 +104,7 @@ def grid_search(model, X, y, max_depth_range_list, min_sample_split_list):
     grid.fit(X, y)
     model.set_params(max_depth=grid.best_params_['max_depth'])
 
-    print('Improved score: ', grid.best_score_)
+    print('\nImproved score: ', grid.best_score_)
     print('Improved parameters: ', grid.best_params_)
 
     best_model = grid.best_estimator_
@@ -151,7 +151,7 @@ def main():
 
     print(X.info())
 
-
+    '''
     #Delay_minutes predictions
     print(10 * '-' + "Regression problem Results" + 10 * '-')
     print("\nLinearRegression results:")
@@ -181,6 +181,7 @@ def main():
     print("\n Delay Risk Predictions \n")
     print(10 * '-' + "Classification Problem Results" + 10 * '-')
 
+    '''
     # Create several models and compare to see which would be the most accurate for our data
     
     fit_lda = train_model(LinearDiscriminantAnalysis(solver='svd'), X_train, y_train)
@@ -217,19 +218,14 @@ def main():
     print("\n K-Fold Cross Validation Scores \n")
 
     kfold_scores_lda = kfold_cv(LinearDiscriminantAnalysis(solver='svd'), X, y)
-    #print(kfold_scores_lda)
 
     kfold_scores_qda = kfold_cv(QuadraticDiscriminantAnalysis(reg_param=0.5), X, y)
-    #print(kfold_scores_qda)
 
     kfold_scores_logit = kfold_cv(LogisticRegression(random_state=42, max_iter=100), X, y)
-    #print(kfold_scores_logit)
 
     kfold_scores_dt = kfold_cv(DecisionTreeClassifier(random_state=42), X, y)
-    #print(kfold_scores_dt)
 
     kfold_scores_knn = kfold_cv(neighbors.KNeighborsClassifier(n_neighbors=5), X, y)
-    #print(kfold_scores_knn)
 
     kfold_evals = [kfold_scores_lda, kfold_scores_qda, kfold_scores_logit, kfold_scores_dt, kfold_scores_knn]
 
@@ -243,7 +239,7 @@ def main():
     best_dt_model, best_dt_params = grid_search(DecisionTreeClassifier(random_state=42), X, y, max_depth_range_list, min_sample_split_list)
     print(f"Best Decision Tree Model: {best_dt_model}")
     print(f"Best Decision Tree Parameters: {best_dt_params}")  
-    
+
 
     # Visualize the results of Decision Tree model
     print("\n K-Fold Cross Validation Scores for Tuned Decision Tree Model \n")
