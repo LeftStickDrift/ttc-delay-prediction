@@ -14,24 +14,6 @@ from sklearn.metrics import accuracy_score
 # Visualize Functions
 # (We could/may use these for visualization for the report or within main.py)
 
-def plotScatter(dataset_df, x_col, y_col):
-    '''
-    Plots a scatterplot for the dataframe based on two variables.
-
-    Argument(s):
-      dataset_df (Pandas Dataframe): dataframe of dataset
-      x_col (str): a column acting as independent data within dataset
-      y_col (str): a column acting as dependent data within dataset
-
-    Return(s):
-      None
-    '''
-
-    dataset_df.plot(x=x_col, y=y_col, kind="scatter")
-
-    return(None)
-
-
 def display_metrics(y_true, y_pred): 
     '''
     Display the mean square error, root mean square error, and R^2 metric
@@ -94,3 +76,42 @@ def plot_acc(scores):
     plt.tight_layout()
     plt.show()
     plt.close()
+
+
+def plot_tree(tree): # Keep function (remove this comment later)
+    '''
+    Plots a decision tree.
+    
+    Args:
+        tree (decision tree): a decisiion tree model
+
+    Return:
+        None
+    '''
+    """Plots a decision tree. Returns: None"""
+    plt.figure(figsize=(15,10))
+    tree.plot_tree(tree, filled=True)
+    plt.show()
+
+
+def plot_scatterplot_model(model_name, x_col_name, y_col_name,X_test, y_pred):
+    '''
+    Plots a scatterplot of a given model.
+    
+    Args:
+        model (machine learning model): a model
+        model_name (string): name of the model
+        X_test (dataframe): a dataframe containing the test data for the model
+        y_pred (array): a dataframe column class representing predicted values (model predictions)
+
+    Return:
+        None
+    '''
+
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(x=X_test[x_col_name], y=X_test[y_col_name], hue=y_pred)
+
+    plt.title(model_name + ' Predictions')
+    plt.xlabel(x_col_name)
+    plt.ylabel(y_col_name)
+    plt.show()

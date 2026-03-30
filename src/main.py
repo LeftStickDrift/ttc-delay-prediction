@@ -17,7 +17,7 @@ from sklearn import neighbors
 
 from sklearn.metrics import accuracy_score, roc_auc_score
 from sklearn.model_selection import cross_val_score, KFold, GridSearchCV
-from visualization.visualize import get_performance_metrics, display_metrics, plot_acc
+from visualization.visualize import get_performance_metrics, display_metrics, plot_acc, plot_scatterplot_model
 
 import pandas as pd
 
@@ -252,6 +252,18 @@ def main():
     '''
     # Based on the results, the optimal number of kfolds seems to be 8 (based on the accuracy plot) and the
     # best decision tree model has an accuracy of 80% with a max depth of 20 and min sample split of 64 under 20 folds.
+
+    # Visualize the results of Decision Tree model
+    print("\n K-Fold Cross Validation Scores for Tuned Decision Tree Model \n")
+    plot_acc(kfold_scores_dt)
+    print("-" * 10)
+    # Based on the results, the optimal number of kfolds seems to be 8 (based on the accuracy plot) and the
+    # best decision tree model has an accuracy of 80% with a max depth of 20 and min sample split of 64 under 20 folds.
+    
+    print("\n Scatterplot of Tuned Decision Tree Model Predictions \n")
+    plot_scatterplot_model('Decision Tree', 'Month', 'Rush_Hour', X_test, y_pred_dt)
+    print("-" * 10)
+
 
     # df_copy.info()
     # print(df_copy.head())
