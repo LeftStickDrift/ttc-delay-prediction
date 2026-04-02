@@ -70,3 +70,7 @@ Please submit the recorded video and  to keep YouTube Video Presentation (non-pu
 - Save and share the link below.
 
 To watch the video presentation, click the following YouTube link: [Link](https://youtu.be/QmOxRgjw7iY)
+
+To watch the video presentation, click the following YouTube link: [Link](https://lauriercloud-my.sharepoint.com/:p:/r/personal/owus0902_mylaurier_ca/Documents/CP322%20Presentation.pptx?d=w6feb6aa062f94e2fa2b7866b229ad5d5&csf=1&web=1&e=hBX6xa)
+
+To watch the video presentation, click the following link to powerpoint: [Link](https://youtu.be/QmOxRgjw7iY)
