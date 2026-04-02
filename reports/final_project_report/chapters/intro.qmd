@@ -2,6 +2,10 @@
 
 See this how you can add a reference, @knuth84.
 
+[@scikit-learn]
+
+[@classnotes]
+
 ## Overview
 
 ### Existing System

@@ -3,6 +3,9 @@ Once you have your dataset, you need to preprocess it to make it suitable for ma
 
 
 ## Dataset Collection
+The dataset we chose to use was the City of Toronto "TTC Bus Delay Data" 2025 dataset, as our objective for this project was aimed to relate to a real-world issue. The goal was to predict delay risk of a particualar TTC vehicle on a specified day and also to predict the amount delay in minutes based off the datasets predictors and our own custom features. Finding the dataset was simple as city of Toronto contains many publically available data that is regularly updated,
+
+Here is the city of Toronto Dataset (2025) [Dataset Source](https://open.toronto.ca/dataset/ttc-bus-delay-data/)
 
 ## Data Pre-processing
 
@@ -19,17 +22,31 @@ Some issues to consider to be included:
 
 - Does transforming the data simplify any analysis?
 
+To pre-process the dataset we first went ahead and dropped columns with null/none values. Afterwards, we realized if we wanted to utilize classification methods such as logistic regression that we’d have to encode the data for each unique label/category within a column. Encoding columns such as bounds was straight forward as we could encode. each direction of north, east, south, and west to a specific integer. However, this would be impossible to do for columns such as stations, transit codes, and lines within our dataset as there could be dozens of unique points of data. For example, there may be dozens or hundreds of stations present in the TTC. To solve this, we conducted research and found that factorize, which is a built-in method of the pandas library, can be utilized to automatically encode each unique categorical piece of data in these columns with a unique integer. By looking through the documentation of this built-in method, we were able to apply this and encode the labels for these datasets. To sum things up, we dropped null values and used the built-in method factorize to preprocess our dataset for model training and testing. 
+
+Furthermore, we did encounter issues using this preprocessed dataset. We found that there were several outliers that completely skewed our data during model training and testing. For example, there were lots of outliers within our “Delay Minutes’ column of data within the dataset as lots of outliers were too long such as hitting 90 minutes or so when most of the data within this column was between 15 and 60 minutes. We dealt with these outliers by restricting the amount of the data for this column by only including values between 15 and 60 minutes. As a result, the data became less skewed and normalized. Overall, we ended up using this final preprocessed dataset to conduct model training, testing, and validation.
+
+
 ## Exploratory Data Analysis and Visualisations 
 
-Some of the steps, included here:
+For exploratory data analysis and visualizations we utilized visualizations to examine the relationship between our models. Specifically for the regression models we ploted the predicted vs the actual data and a plot of the residuals to capture where our models struggled to find a relationship. 
 
-- Data visualization: Data visualization is the process of creating graphs and charts to help you understand the patterns and trends in the data. This step can help you identify outliers and anomalies in the data.
+For the classifications models we utilized tree plots to plot what the decision tree looked like after splits and applying kfold - cross-validation. Scatterplots were also utilized to plot the actual delay-risk compared to our models predicted delay-risk. 
 
-- Statistical analysis: Statistical analysis involves applying statistical methods to the data to identify patterns, trends, and relationships. This step can help you identify correlations between variables and understand the distribution of the data.
+- Data Visualizations: The graphs we created were to understand the patterns and trends in the data. The provided visualizations tools:
 
-- Feature selection: Feature selection is the process of selecting the most important variables that will be used in the machine learning model. This step can help you identify which variables are most predictive and which variables can be ignored.
+    - Scatterplots were used to examine the relationship between two variables, the actual and the predicted. 
+    - Basic plot functions was used to examine a single model predictions or to plot decision trees.
+    - We also utilized basic plot functions to compare our models before tuning vs after tuning. 
+        This was used for classification trees to see the accuracy before and after applying k-fold cross validation. 
 
-- Dimensionality reduction: Dimensionality reduction is the process of reducing the number of variables in the data set. This step can help you reduce the complexity of the model and improve its performance.
+- Statistical analysis: 
+    The linear regression model was used to analyze if the data had a linear relationship. To evaluate this we used MSE, RMSE and R² to evaluate meaningfully the error of our prediction of delay in minutes and how much of the data it actually captures. For the decision tree regressor we evaluated using the same metrics as linear regression to compare the models. However with regression tree's we saw siginificant benefits from hyperparameter tuning by running grid-search to find optimal parameters we saw lower error and a higher r^2 relationship. Random forest regresser also saw benefits from hyperparameters-tuning resulting in a lower-eror and better r². From comparing these models we learned that distribution of the data was not linear but non-linear likely due to significant outliers and variances within the data. 
+
+- Feature selection: 
+    For feature selection we used: Line, Day, Station, Code, Bound, Vehicle, Time_Group_late, night,Time_Group_early morning, Time_Group_noon, Time_Group_afternoon, Time_Group_evening, Time_Group_night, Day_Of_Week,Hour,Month and Rush_Hour. For the features Time_Group, Day, Hour, Month, Day_of_Week and Rush_Hour we used existing features to extract these features. As we concluded these would be meaningful and predictive in classifying risk and predicting the delay in minutes. We found these variables to be predictive, so we removed existing features after extracting more predictive features from them after feature engineering.  
+
+- Dimensionality reduction: We did not use dimensionality reduction. 
 
 
 ## Other Related Sections (Optional)

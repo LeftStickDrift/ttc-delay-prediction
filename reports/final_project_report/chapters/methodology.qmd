@@ -3,30 +3,54 @@
 ## Introduction to Python for Machine Learning
 
 ## Platform and Machine Configurations Used
-Such Google Colab, Kaggle, Syzygy, or your own machine then the machine configuration.
+Google Colab and for machine configurations we used VS Code, Windows 11 os, Python 3.12.10, scikit-learn libraries, Panda and Numpy.
 
 ## Data Split
 
 Data splitting is the process of dividing the data into training, validation, and test sets. This step can help you evaluate the performance of the model on new data.
 
+For data-splitting we did train/test split of 80/20, 80% of data being used for the training set and the 20% used for the testing set. We chose this split as a 80/20 split finds a balance between having enough data to train a strong model, but also enough data to test how it performs with new data. 
+
 ## Model Planning
 
 The next step is to select the appropriate machine learning or deep learning models ( 2 - 3 ) that can be used to solve the problem. This involves evaluating different models and selecting the one that is best suited for the problem.
+ 
+
+For predicting the delay_minutes a continuous metric chose was the models linear regression, decision tree regressor and random forest regressor. We chose the linear regression model to see how the model would perform on linear data, we assumed that TTC delay would not be linearly seperable due to sporatic events of transportion. However, wanted a base to see how that model would measure the data. Our second choice was decision tree regressor which splits data into subgroups based on the provided features. Lastly, we chose the random tree regressor model to see if it could capture variabilty in TTC data by leveraging the averaging of results to improve predictability. 
+
+Furthermore, to model this problem we planned to use several classification models and test to see which models yield the highest accuracy. Models we utilized involved linear discriminant analysis (LDA), quadratic discriminant analysis (QDA), logistic regression, decision tree, k-nearest neighbour (KNN). 
+
 
 ## Model Training: 
 
 This involves using the training data to adjust the model parameters to improve its accuracy.
 
+For training the regression models we trained it using the parameters: Line, Day, Station, Code, Bound, Vehicle, Time_Group_late, Night, Time_Group_early, Morning, Time_Group_noon, Time_Group_afternoon, Time_Group_evening, Time_Group_night, Day_Of_Week, Hour,Month and Rush_Hour. We trained the models using the same dataset splits to have fair comparison between the results. However for the tree regression models we chose specific parameter grids, for DecisionTree and RandomForest Regressor we created a parameter grid to use with gridsearch to the find best parameters for the Max-depth, Minimal samples of splits and minimum samples of leafs for our tree. We did this so the best set of performing parameters would be selected during training before we fit our models. Also, implemented random state to 42 to consider consistent data and results. 
+
+
+Our classification models utilized the variables we used when we trained and split the data. When fitting each model we used the same parameters of data from the training split alongside unique parameters towards some classification models. For example, in our KNN model we set k to equal 5, for QDA we set the regular parameter to 0.5, and for LDA we used the default method for this algorithm. For our decision tree model, we set the random state to be equivalent to 42 in order to ensure a consistent seed of data for the model. For logistic regression, we encountered some issues during execution time which will further be discussed in the “Model Optimization” section. All of our models we’re able to execute however, we encountered issues such as a limit error for logistic regression due to the maximum iterations currently set by default as the best model wasn’t found for logistic regression under the default maximum iteration.
+
+
 ## Model Evaluation
 
 Once the model is trained, the next step is to evaluate its performance on a validation dataset. 
 
+The evaluation of our regression was performed on a test-set that was not previously used rather then a seperate validation set. However a grid-search algorithm was utilized during training for the tree models to find the best splits for parameters. The utilization of the seperate set was implemented to prevent overfitting and data-leaking from seen data. The metrics we used to evaluate our regression models was mean-squared-error (MSE), root-mean-squared-error (RMSE) and R². We used these metrics as it served as a basis to test for our models average error, intepretability and to confirm the scope of capturing the data effectively. Metrics are further discussed in sec. 4.3. 
+
+To evaluate our classification models we analyzed the accuracy scores and used k-fold cross validation to further analyze a set of accuracy scores of each model in order to compare and find a model with the highest accuracy score/precision. After conducting k-fold cross validation where k = 20, we found that most of the accuracy scores were close to the accuracy scores calculated previously for each model as displayed in figure #. We found that our decision tree model yielded the highest accuracy score and chose to optimize that model furthermore in order to reach an accuracy score of 80% or higher.
+
 ## Model Optimization
 
 Based on the results of the model evaluation, the next step is to optimize the model to improve its performance. This involves making changes to the model's architecture, tuning the hyperparameters, and retraining the model.
+
+Throughout the process of improving our model in predicting delay in minutes we made several adjustments to retrain our model. Such as feature-engineering utilzing existing features to create new features. Implementing a grid-search for our regression tree models to find optimal hyperparameters. Both emerged in siginficant improvements in metrics and predictiveness. 
+
+For our decision tree classification model, in order to further optimize the model we utilized grid search cross validation for hypertuning in order to find the best decision tree model and parameters. By tuning the maximum depth range and minimum sample split parameters for grid search, we were able to find a model that would yield an accuracy score of 80% through trial and error. We’ve also tuned the number of cross validations in grid search and found that 20 folds yield an accuracy score of 80% or higher.
 
 ## Final Model Building
 
 Once the model is optimized, the final step is to fit the model and report final test error for each model
 
 Present the information with support Screen Shots/ Figures (Each Figure must be numbered and Description of Figure must be provided)
+
+Shown in section 4.0 onward and see list of figures:

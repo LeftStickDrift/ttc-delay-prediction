@@ -1,3 +1,7 @@
 # Conclusion
 
 Conclude by summarizing the key findings of the analysis, discussing the implications of the results, and suggesting areas for future research.
+
+Key findings of the analysis is that the dataset itself contains many large outliers however our models have improved performance when we create specific conditions to reduce the total number of feature. In terms of the regression models, clear from analyzing the linear to the tree models the data is non-linear which benefits from non-linear modeling approaches. The random forest model was the best performer because of how it handles variance through averaging, handling noise and variability within the dataset. Additionally, predictability improved significantly from feature engineering, emphasizing the importance of good features and creating new features. Overall, random forest saw the most improvements but for future research into this problem I believe that it can improve siginficantly from more transformations within the data.
+
+Furthermore, the classification model we found to be the best and most accurate was the decision tree model with an accuracy score of approximately 80% that was trained under 20-fold grid search. This model classifies each month with a delay risk, 1 being the delay risk being 50% or greater and 0 being otherwise. In other words, 1 represents months with a common occurrence of delay while 0 represents months with a less common delay.

@@ -1,3 +1,6 @@
 # Preface {.unnumbered}
 
-Write your content.
+The problem we are trying to address are inconsistent times in bus timing, so we aim to predict with our ML model the delay risk and the bus delay in minutes. Even though there are systems that already exist that predict delays, with our model we aim to transform our data and use suitable algorithms to accurately predict delays for City of Toronto TTC bus delays. 
+
+The objective is to make our application useful in accurately predicting delay and delay risk in real-world scenarios. This can be achieved by introducing and training our data on newer updated data, so our model can be tweaked to fit with more relevant data. Ultimately, our main goal for this project is to predict delay risk within the City of Toronto for TTC bus delay data. To do so, we plan to create two models using regression and classification where one model displays how many minutes transit is delayed at a station while our classification model displays the percentage of delay risk in each month, stating which months have a delay risk of 50% or greater or less than 50%. Overall, these models can be utilized together and be further expanded upon to predict delays more precisely to the Toronto Transit Commission (TTC).
+

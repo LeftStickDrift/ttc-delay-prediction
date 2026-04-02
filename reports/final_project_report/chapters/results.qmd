@@ -6,28 +6,173 @@ To compare different machine learning models in the results section, here are so
 
 Start by providing a brief description of each model, including its purpose, algorithm type, and any relevant parameters or features used.
 
+Regresson Models:
+
+ Linear Regression
+  A supervised machine learning algorithm that is used to predict the output as a continous value based off quantitative predictors. This is done to model the relationship between the independent and dependent variable. The models uses a linear line to create the relationship and the purpose in our projects context was to serve as a baseline for comparisons to other models.
+
+ Decision Tree Regressor 
+ A supervised machine learning algorithm that uses a tree structure to split the data into seperate nodes to predict a continous value. The purpose of this structure is to split decisions into smaller nodes until it reaches a leaf-node to output a final continous value. In our projects context the specific features were max-depth, minimal samples of splits and minimum samples of leaf.
+
+ Random Forest Regressor 
+ A supervised machine learning algorithm that similar to Decisions Tree's uses a tree structure but combines multiple tree's to output the response as a continous value. This is useful for capturing non-linear data by spreading subsets of the data to train on many trees. By doing this it aided in predicting the minute delay as it prioritized stability to get results. The specific parameters we used here was max-depth, minimal samples of split, minimum samples of leaf and max_features. 
+
+ For classification, we used several models as we wanted to compare the accuracy scores of this model and select the model with the highest accuracy score to optimize and fine tune. The classification models we used are displayed in the table below.
+
+Classification Models: 
+
+ Linear Discriminant Analysis (LDA)
+ A supervised machine learning algorithm that sets up linear decision boundaries.
+
+ Quadratic Discriminant Analysis (QDA)
+ A supervised machine learning algorithm that sets up non-linear decision boundaries.
+
+ Logistic Regression is A machine learning algorithm that predicts the probability of categorical outcomes based on input data.
+ Decision Tree (Classification Tree)
+ A machine learning method that categorizes data and converges upon certain points. 
+
+ K-Nearest Neighbour (KNN)
+ An algorithm that checks a data point’s neighbors to make a decision. Classifying a point of data based on the nearest k points or data, this eventually results in a boundary or several boundaries.
+
 ## Performance Metrics
 
 Describe the performance metrics used to evaluate the models, such as RMSE, MSE, accuracy, precision, recall, F1 score, or area under the receiver operating characteristic curve (AUC-ROC), etc based on the model class.
+
+The performance metrics we used to evaluate our models was RMSE, MSE and R².
+
+ MSE was used to compare our models predicted results versus the actual results to see our models average error. The RMSE was utilized to interprate the error in minutes, so clear conclusions of our average models deviation from the actual data. As RMSE provides a interpretable way to measure the deviations for predictions of delay in minutes, allowing us to perceive how our data differs. R² measured how our model explains the data and how well our model explains the variability within the data. 
+
+ Furthermore, to evaluate our classification models we went ahead and compared performance metrics such as the accuracy between each model. Initially, these values were very low ranging from 0% to 20% accuracy due to the immense outliers present within our dataset. By restricting our outliers as mentioned previously in section 2.2 “Data Processing”, we managed to yield the accuracy results displayed in table #. We found that our decision tree model had the highest accuracy, however we wanted to find a model yielding an accuracy of 80%. Therefore, we’d need to further optimize these models and tune parameters in order to increase accuracy.
 
 ## Results Table
 
 Create a results table that presents the performance metrics for each model in a clear and concise format. The table should include the name of the model, the performance metric, and the value of the metric. It can also be helpful to include the standard deviation or confidence intervals for each metric.
 
+::: {#fig-class-table fig-cap="Displays accuracy and precision scores for each classification model." fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/classification-perform-metrics-sec-4-3.png)
+
+:::
+
+::: {#fig-reg-table fig-cap="Displays MSE, RMSE, and R² for each regression model." fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Reg-perform-metrics-sec-4-3.png)
+
+:::
+
 ## Interpretation of the Results 
 
-Provide an interpretation of the results, highlighting any significant differences between the models. Discuss which model performed the best and why, as well as any limitations or potential sources of error.
+Provide an interpretation of the results, highlighting any significant differences between the models. Discuss which model performed the best and why, as well as any limitations or potential sources 
+of error.
+
+Among our regression, the random Forest regressor model performed the best in every metric with a lower mse, rmse and a higher r². The reason is due to the averaging out of tree's to come to a prediction. Additionally, this model robustness against noise is another strong factor given the high variance in the dataset. Siginificant difference can be observed between the linear regression model and the tree-based regression models highlighting the data is not linearly seperable and is to complex to be captured using a linear relationship. The observed differences from decision tree and random forest could potentially be from random-forest averaging predictions across many trees, reducing variances. This factor is a explanation behind the higher r^2 as the dataset contained high variability.
+
+Amongst our classification models, the decision tree model performed the best as it yielded the highest accuracy precision score amongst all the other models utilizing the training and testing. After conducting 20-fold cross validation, this was even more apparent as most of the accuracy scores for the decision tree model were higher than the accuracy scores present in the sets present within the other models. 
 
 ## Visualization
 
 Provide visualizations to support the interpretation of the results, such as bar charts or box plots. These can help to illustrate the differences between the models and make the results more accessible to readers.
 
+::: {#fig-kfold fig-cap="20-fold cross-validation results for the tuned decision tree model using grid search." fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/k-foldcv-visualization.png)
+
+:::
+
+Months represent the months of January to December (1 = January, 12 = December). Each month is classified as true or false, 
+representing the month to have rush hours 50% or more of the time. False representing that rush hour occurs less than 50% of the time. Rush hour is correlated with delay risk.
+
+::: {#fig-dtree fig-cap="Decision Tree Predictions" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Class-decision-tree-visualization.png)
+
+:::
+
+Based on our results for our tuned decision tree model, we can see that the decision tree model yields an accuracy of approximately 80.59%. The optimal number of folds appears to range from 8 to 10. Overall, this model yields the optimal target accuracy score compared to the other classification models. 
+
+Regression models:
+
+::: {#fig-lreg1 fig-cap="Linear Regression Actual vs Predicted Scatterplot" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Reg-linear-actual-vs-predicted-visualization.png)
+
+:::
+
+::: {#fig-lreg2 fig-cap="Linear Regression Residuals" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Reg-linear-residual-visualization.png)
+
+:::
+
+::: {#fig-regdtree1 fig-cap="Reg-Decision Tree Actual vs Predicted Scatterplot" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Reg-decision-tree-actual-vs-predicted-visualization.png)
+
+:::
+
+::: {#fig-regdtree2 fig-cap="Reg-Decision Tree Residuals" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Reg-decision-tree-residuals-visualization.png)
+
+:::
+
+::: {#fig-regrtree1 fig-cap="Random-reg Actual vs Predicted Scatterplot" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Reg-random-tree-actual-vs-predicted-visualization.png)
+
+:::
+
+
+::: {#fig-regrtree2 fig-cap="Random-reg Tree Residuals" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/Reg-random-tree-residuals-visualization.png)
+
+:::
+
+
+
+
+
 ## Sensitivity Analysis
 
 Conduct a sensitivity analysis to test the robustness of the models. This can involve varying the parameters or features used in the models and re-evaluating their performance.
 
+When testing our models when we only keep the predictors at delay_minutes < 30 min. For the regression models we see that the linear regression model still performs the worst compared to Figure 4.2 however the error does improve alongside the other models. Highlighting the model benefiting from less noise. Consistently like the previous figure the other models improves in a steady rate, random forest remaining top performer. Due to the ensembling techniques like bagging reducing the variance. Additionally, benefits because of a less exhaustive dataset since it contains less features.
+
+::: {#fig-sentest fig-cap="Reg-Sens" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/reg-sensitivity-analysis.png)
+
+:::
 
 
+
+Furthermore, when testing our decision tree model we initially had to tune the hyperparameters in order to gradually increase the accuracy score which was approximately 78%. To increase this score, we went ahead and changed the number of folds from 10 to 20 and increased the maximum depth range and minimum sample split lists within our grid search cross validation. The following figures displays the results of the decision tree model with different maximum depth range and minimum sample split list parameters.
+
+
+
+
+::: {#fig-senclastest fig-cap="Displays the parameters used for maximum_depth_range and minimum_sample_list in each figure undergoing 20-fold cross validation grid search" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/class-sens-test1.png)
+
+:::
+
+
+
+
+::: {#fig-senclastest1 fig-cap="First set of parameters, results of grid search using a specific set of parameters mentioned in Table" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/class-sens-test2.png)
+
+:::
+
+
+::: {#fig-senclastest2 fig-cap="Second set of parameters, results of grid search using a specific set of parameters mentioned in Table" fig-pos="H"}
+
+![](_extensions/nmfs-opensci/titlepage/images/class-sens-test3.png)
+
+:::
 
 
 

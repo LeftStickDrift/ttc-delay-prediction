@@ -152,7 +152,7 @@ def main():
     df_copy = weekday_hour_month_encoding(df_copy)
     df_copy = rush_hour(df_copy)
 
-    df_copy = df_copy[df_copy['Delay_Minutes'] < 60] 
+    df_copy = df_copy[df_copy['Delay_Minutes'] < 30] 
 
     #Store processed and feature engineered dataset
     df_copy.to_csv('data/processed/processed_ttc_dataset.csv', index=False)
