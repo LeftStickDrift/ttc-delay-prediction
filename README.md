@@ -1,51 +1,37 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/hlUG2xa0)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=23105503&assignment_repo_type=AssignmentRepo)
-Project Instructions
-==============================
+# TTC Delay Prediction
 
-This repo contains the instructions for a machine learning project. 
+A machine learning project analyzing Toronto Transit Commission (TTC) 
+delay data to predict delay risk and duration using classification 
+and regression models.
 
-**Do Not Forget to mention the Python Version being used and complete the requirements.txt fil**
+## Project Overview
 
-Project Organization
-------------
+Using the TTC 2025 delay dataset, we built models to:
+- **Classify** whether a delay is high-risk (delay > 15 minutes = 1, otherwise = 0)
+- **Predict** the actual delay duration in minutes using regression
 
-    ├── README.md          <- The top-level README for describing highlights for using this ML project.
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention should snake case.
-    │
-    ├── reports            
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │   └── README.md      <- Youtube Video Link
-    │   └── final_project_report <- final report .pdf format and supporting files
-    │   └── presentation   <-  final power point presentation 
-    |
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── src                <- Source code for use in this project.
-       ├── __init__.py    <- Makes src a Python module
-       ├── data
-       │   ├── processed      <- The final, canonical data sets for modeling.
-       │   └── raw            <- The original, immutable data dump.
-       │
-       ├── preprocessing_data           <- Scripts to download or generate data and pre-process the data
-       │   └── pre-processing.py
-       │
-       ├── feature_engineering       <- Scripts to turn raw data into features for modeling
-       │   └── build_features.py
-       │
-       ├── models         <- Scripts to train models and then use trained models to make
-       │   │                 predictions
-       │   ├── predict_model.py
-       │   └── train_model.py
-       │
-       └── visualization  <- Scripts to create exploratory and results oriented visualizations
-       │   └── visualize.py  
-       │
-       └── main.py  <- main script to run all the models and call appropriate functions
-       |
-       ├── LICENSE  <- LICENSE terms to be included for the use of the source code distribution
+## Models & Results
 
+### Classification
+| Model | Accuracy |
+|-------|----------|
+| Linear Discriminant Analysis (LDA) | 68% |
+| Quadratic Discriminant Analysis (QDA) | 67% |
+| Logistic Regression | 68% |
+| Decision Tree | 78% |
+| K-Nearest Neighbour (KNN) | 70% |
+
+### Regression
+| Model | MSE | RMSE | R² |
+|-------|-----|------|----|
+| Linear Regression | 83.66 | 9.15 | 0.03 |
+| Decision Tree | 61.16 | 7.82 | 0.29 |
+| Random Forest | 50.68 | 7.12 | 0.41 |
+
+## Authors
+- Arber
+- Jeryshan
+
+*Developed as part of a course project at Wilfrid Laurier University.*
 
 
