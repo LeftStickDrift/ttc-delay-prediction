@@ -29,7 +29,7 @@ Using the TTC 2025 delay dataset, we built models to:
 | Random Forest | 50.68 | 7.12 | 0.41 |
 
 ## Authors
-- Arber
+- Arbert
 - Jeryshan
 
 *Developed as part of a course project at Wilfrid Laurier University.*
