@@ -7,7 +7,7 @@ and regression models.
 ## Project Overview
 
 Using the TTC 2025 delay dataset, we built models to:
-- **Classify** whether a delay is high-risk (delay > 15 minutes = 1, otherwise = 0)
+- **Classify** whether a delay is high-risk (delay > 30 minutes = 1, otherwise = 0)
 - **Predict** the actual delay duration in minutes using regression
 
 ## Models & Results
